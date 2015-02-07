@@ -25,7 +25,7 @@ public final class RainRainGoAway extends JavaPlugin implements Listener {
         getLogger().info("Going Away");
     }
     
-    public boolean noRainFor(String worldName) {
+    public boolean isRainDisabledInWorld(String worldName) {
         return config.getBoolean("noRainEverywhere") || config.getList("onlyTheseWorlds").contains(worldName);
     }
     
@@ -35,7 +35,7 @@ public final class RainRainGoAway extends JavaPlugin implements Listener {
             String worldName = event.getWorld().getName();
             boolean rainStarting = event.toWeatherState();
             getLogger().info("Rain state for world " + worldName + " switching to " + rainStarting);
-            if(rainStarting && noRainFor(worldName)) {
+            if(rainStarting && isRainDisabledInWorld(worldName)) {
                 event.setCancelled(true);
                 getLogger().info("Rain cancelled in world: " + worldName);
             }
